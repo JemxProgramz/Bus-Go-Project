@@ -1,0 +1,48 @@
+Andhra Bank Net Banking
+Axis Bank Net Banking
+Bandhan Bank Net Banking
+Bank Of Baroda Net Banking
+Bank Of India Net Banking
+Bank Of Maharashtra Net Banking
+Canara Bank Net Banking
+Citibank Net Banking
+HDFC Bank Net Banking
+ICICI Bank Net Banking
+IDBI Bank Net Banking
+IDFC First Bank Net Banking
+Indian Bank Net Banking
+Indian Overseas Bank Net Banking
+IndusInd Bank Net Banking
+Karnataka Bank Net Banking
+Kotak Mahindra Bank Net Banking
+Punjab National BankNet Banking
+SBI Net Banking
+Standard CharteredBank Net Banking
+Tamilnad Mercantile Bank Net Banking
+
+
+const banks = [
+    { name: 'Andhra Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/andhra-bank.webp' },
+    { name: 'Axis Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/axis-bank.webp' },
+    { name: 'Bandhan Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/bandhan-bank.webp' },
+    { name: 'Bank Of Baroda', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/bank-of-baroda.webp' },
+    { name: 'Bank Of India', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/bank-of-india.webp' },
+    { name: 'Bank Of Maharashtra', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/bank-of-maharashtra.webp' },
+    { name: 'Canara Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/canara-bank.webp' },
+    { name: 'Citibank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/citibank.webp' },
+    { name: 'HDFC Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/hdfc-bank.webp' },
+    { name: 'ICICI Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/icici-bank.webp' },
+    { name: 'IDBI Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/idbi-bank.webp' },
+    { name: 'IDFC First Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/idfc-first-bank.webp' },
+    { name: 'Indian Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/indian-bank.webp' },
+    { name: 'Indian Overseas Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/indian-overseas-bank.webp' },
+    { name: 'IndusInd Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/indusind-bank.webp' },
+    { name: 'Karnataka Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/karnataka-bank.webp' },
+    { name: 'Kotak Mahindra Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/kotak-mahindra-bank.webp' },
+    { name: 'Punjab National Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/punjab-national-bank.webp' },
+    { name: 'SBI', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/sbi.webp' },
+    { name: 'Standard Chartered Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/standard-chartered-bank.webp' },
+    { name: 'Tamilnad Mercantile Bank', logo: 'https://cm-cdn.creditmantri.com/bundle/lenders-webp/tamilnad-mercantile-bank.webp' }
+];
+
+https://1000logos.net/wp-content/uploads/2021/03/Paytm_Logo.jpg

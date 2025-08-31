@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">BusGo - Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="Styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div id="notification-container"></div>
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white/80 backdrop-blur-lg shadow-md sticky top-0 z-40">
+           <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                    <img src="Images/logo.png" alt="BusGo Logo" class="w-12 h-12 object-contain">
+                    <span class="text-2xl font-bold text-gray-800">BusGo</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <div class="relative"><select id="language-select" class="bg-white text-gray-800 border border-gray-300 rounded-lg px-2 py-1"><option value="en">English</option><option value="ta">தமிழ்</option></select></div>
+                    <div id="auth-links" class="flex items-center gap-4"></div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow animate-fade-in py-8">
+             <div class="container mx-auto px-4">
+                <div class="main-payment-layout">
+                    <div class="payment-and-summary-wrapper">
+                        <div class="payment-methods-container">
+                            <div class="bg-white rounded-xl shadow-lg flex flex-col lg:flex-row">
+                                <div class="w-full lg:w-1/3 border-b lg:border-b-0 lg:border-r border-gray-200">
+                                    <h3 class="p-4 font-bold text-lg border-b border-gray-200" data-i18n="payment_methods">Payment Methods</h3>
+                                    <div id="payment-tabs-container">
+                                        <button class="payment-tab active" data-target="card-payment"><i data-lucide="credit-card"></i> <span data-i18n="credit_debit_cards">Credit / Debit Cards</span></button>
+                                        <button class="payment-tab" data-target="netbanking-payment"><i data-lucide="landmark"></i> <span data-i18n="net_banking">Net Banking</span></button>
+                                        <button class="payment-tab" data-target="upi-payment"><i data-lucide="smartphone"></i> <span data-i18n="upi">UPI</span></button>
+                                        <button class="payment-tab" data-target="wallets-payment"><i data-lucide="wallet"></i> <span data-i18n="wallets">Wallets</span></button>
+                                        <button class="payment-tab upi-qr-tab" data-target="upi-qr-payment"><i data-lucide="qr-code"></i> <span data-i18n="upi_qr">UPI QR</span></button>
+                                    </div>
+                                </div>
+                                <div class="w-full lg:w-2/3 p-6">
+                                    <div id="card-payment" class="payment-method">
+                                        <form id="payment-form" class="space-y-4" novalidate>
+                                            <div>
+                                                <label for="card-number" class="block text-sm font-medium text-gray-700" data-i18n="card_number">Card Number</label>
+                                                <input type="text" id="card-number" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" required placeholder="xxxx xxxx xxxx xxxx" maxlength="19">
+                                                <p id="card-number-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <label for="expiry-date" class="block text-sm font-medium text-gray-700" data-i18n="expiration_date">Expiration date</label>
+                                                    <input type="text" id="expiry-date" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" required placeholder="MM/YY">
+                                                    <p id="expiry-date-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                                </div>
+                                                <div>
+                                                    <label for="cvv" class="block text-sm font-medium text-gray-700" data-i18n="security_code">Security code</label>
+                                                    <input type="text" id="cvv" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" required placeholder="CVV" maxlength="4" oninput="this.value=this.value.replace(/\D/g,'')">
+                                                    <p id="cvv-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label for="card-name" class="block text-sm font-medium text-gray-700" data-i18n="card_holder_name">Card holder name</label>
+                                                <input type="text" id="card-name" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" required placeholder="Full name on card" oninput="this.value=this.value.replace(/[^a-zA-Z\s]/g,'')">
+                                                <p id="card-name-error" class="text-red-500 text-xs mt-1 hidden"></p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="netbanking-payment" class="payment-method hidden">
+                                        <div class="relative mb-4">
+                                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                                            <input type="text" id="bank-search" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg" data-i18n-placeholder="search_by_bank">
+                                        </div>
+                                        <p class="font-semibold text-sm mb-2" data-i18n="top_banks">Top banks</p>
+                                        <div id="bank-list" class="space-y-2 h-64 overflow-y-auto"></div>
+                                    </div>
+                                    <div id="upi-payment" class="payment-method hidden">
+                                        <div class="upi-apps-container">
+                                            <p class="font-semibold text-sm mb-2">Pay using UPI app</p>
+                                            <div class="space-y-2">
+                                                <a href="upi://pay?pa=busgo@upi" class="upi-app-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/2560px-Google_Pay_Logo.svg.png" alt="GPay"><span>GPay</span></a>
+                                                <a href="upi://pay?pa=busgo@upi" class="upi-app-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/PhonePe_Logo.svg/2560px-PhonePe_Logo.svg.png" alt="PhonePe"><span>PhonePe</span></a>
+                                                <a href="upi://pay?pa=busgo@upi" class="upi-app-button"><img src="https://1000logos.net/wp-content/uploads/2021/03/Paytm_Logo.jpg" alt="Paytm"><span>Paytm</span></a>
+                                            </div>
+                                        </div>
+                                        <div class="upi-qr-container">
+                                            <button id="show-qr-btn" class="w-full p-4 border rounded-lg flex items-center justify-center gap-2 hover:bg-gray-100 mb-4"><i data-lucide="scan-line"></i> <span data-i18n="show_qr">Show QR</span></button>
+                                            <p class="text-center my-2 text-sm" data-i18n="or">Or</p>
+                                            <label for="upi-id" class="block text-sm font-medium text-gray-700" data-i18n="enter_upi_id">Enter your UPI ID</label>
+                                            <input type="text" id="upi-id" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" data-i18n-placeholder="enter_upi_id">
+                                        </div>
+                                    </div>
+                                    <div id="wallets-payment" class="payment-method hidden"><p class="font-semibold text-sm mb-2" data-i18n="top_wallets">Top wallets</p><button class="bank-option w-full justify-start">MobiKwik</button></div>
+                                    <div id="upi-qr-payment" class="payment-method hidden text-center">
+                                        <h4 class="font-bold mb-2" data-i18n="scan_qr_code">Scan the QR code</h4>
+                                        <p class="text-sm text-gray-600 mb-4" data-i18n="use_upi_app">Use your UPI app to make your payment.</p>
+                                        <div id="qr-code-container" class="hidden">
+                                            <div id="qrcode" class="flex justify-center p-2 bg-white"></div>
+                                            <p class="text-sm mt-4"><span data-i18n="code_expires_in">Code expires in</span> <span id="qr-timer" class="font-bold">05:00</span></p>
+                                        </div>
+                                        <div id="qr-code-expired" class="hidden">
+                                            <p class="text-red-500 font-bold">QR Code Expired</p>
+                                            <button id="generate-qr-btn" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg">Generate New Code</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="booking-summary-mobile" class="summary-container-mobile"></div>
+                    </div>
+
+                    <div class="dos-and-donts-container">
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg mb-8">
+                            <p class="text-yellow-800"><strong class="font-bold">Note:</strong> In case of transaction failure, please check your Booking History.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4" data-i18n="dos_and_donts">Dos & Don'ts</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-700 mb-2" data-i18n="digital_wallets">Digital Wallets</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-green-50 p-4 rounded-lg"><h5 class="font-bold text-green-800 mb-2" data-i18n="dos">DOs:</h5><ul class="list-disc list-inside space-y-1 text-sm text-gray-700"><li data-i18n="set_strong_password">Set a strong password/PIN.</li><li data-i18n="download_verified_app">Download verified apps only.</li><li data-i18n="install_antivirus">Install an anti-virus.</li><li data-i18n="logout_after_transaction">Log out after every transaction.</li></ul></div>
+                                        <div class="bg-red-50 p-4 rounded-lg"><h5 class="font-bold text-red-800 mb-2" data-i18n="donts">DON'Ts:</h5><ul class="list-disc list-inside space-y-1 text-sm text-gray-700"><li data-i18n="dont_use_same_password">Do not use the same password everywhere.</li><li data-i18n="dont_download_third_party">Avoid downloading unverified apps.</li><li data-i18n="avoid_unidentified_qr">Avoid scanning unidentified QR codes.</li></ul></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-700 mb-2" data-i18n="credit_debit_cards_dos_donts">Credit & Debit Cards</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-green-50 p-4 rounded-lg"><h5 class="font-bold text-green-800 mb-2" data-i18n="dos">DOs:</h5><ul class="list-disc list-inside space-y-1 text-sm text-gray-700"><li data-i18n="opt_for_notifications">Opt for transaction notifications.</li><li data-i18n="discard_receipts">Properly discard receipts.</li><li data-i18n="choose_secure_pin">Choose a secure PIN.</li></ul></div>
+                                        <div class="bg-red-50 p-4 rounded-lg"><h5 class="font-bold text-red-800 mb-2" data-i18n="donts">DON'Ts:</h5><ul class="list-disc list-inside space-y-1 text-sm text-gray-700"><li data-i18n="dont_disclose_cvv">Do not disclose your CVV or PIN.</li><li data-i18n="dont_ignore_alerts">Do not ignore transaction alerts.</li><li data-i18n="avoid_saving_card_details">Avoid saving card details online.</li></ul></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-700 mb-2" data-i18n="what_to_do_in_case_of_cyber_fraud">Cyber-Fraud</h4>
+                                    <p class="text-sm text-gray-700" data-i18n="in_such_cases">In case of cyber-fraud, immediately reach out to your bank.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="booking-summary-desktop" class="summary-container-desktop"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-gray-800 text-white mt-12 py-6">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; <span id="year"></span> <span data-i18n="busgo_all_rights"></span></p>
+                <p class="text-sm text-gray-400 mt-1" data-i18n="project_motto"></p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="popup-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="Scripts/data.js"></script>
+    <script src="Scripts/main.js"></script>
+    <script src="Scripts/payment.js"></script>
+</body>
+</html>

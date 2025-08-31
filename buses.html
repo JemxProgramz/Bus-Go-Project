@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">BusGo - Bus Ticket Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="Styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white/80 backdrop-blur-lg shadow-md sticky top-0 z-40">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                    <img src="Images/logo.png" alt="BusGo Logo" class="w-12 h-12 object-contain">
+                    <span class="text-2xl font-bold text-gray-800">BusGo</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <div class="relative"><select id="language-select" class="bg-white text-gray-800 border border-gray-300 rounded-lg px-2 py-1"><option value="en">English</option><option value="ta">தமிழ்</option></select></div>
+                    <div id="auth-links" class="flex items-center gap-4"></div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow animate-fade-in">
+            <div class="container mx-auto px-4 py-8">
+                <h2 id="buses-title" class="text-3xl font-bold text-gray-800 mb-2"></h2>
+                <p id="buses-subtitle" class="text-gray-600 mb-6"></p>
+                
+                <div class="flex flex-col lg:grid lg:grid-cols-4 lg:gap-8">
+                    <aside class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg h-fit lg:sticky top-24 mb-8 lg:mb-0">
+                        <div class="flex justify-between items-center border-b pb-3 mb-4">
+                            <h3 class="text-xl font-bold text-gray-800" data-i18n="filters"></h3>
+                            <button id="clear-filters-btn" class="text-sm text-blue-600 hover:underline" data-i18n="clear_filters"></button>
+                        </div>
+                        <div id="filters-container" class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold mb-2" data-i18n="price_range"></h4>
+                                <input type="range" id="price-range" min="0" max="1500" value="1500" class="w-full">
+                                <div class="text-sm text-gray-600 text-center mt-1">Up to ₹<span id="price-value">1500</span></div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2" data-i18n="bus_type"></h4>
+                                <div id="bus-type-filter" class="space-y-2 text-sm"></div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2" data-i18n="departure_time"></h4>
+                                <div id="departure-time-filter" class="space-y-2 text-sm">
+                                    <div class="flex items-center"><input type="checkbox" id="time-1" value="1" class="h-4 w-4 rounded"><label for="time-1" class="ml-2" data-i18n="before_6am"></label></div>
+                                    <div class="flex items-center"><input type="checkbox" id="time-2" value="2" class="h-4 w-4 rounded"><label for="time-2" class="ml-2" data-i18n="morning"></label></div>
+                                    <div class="flex items-center"><input type="checkbox" id="time-3" value="3" class="h-4 w-4 rounded"><label for="time-3" class="ml-2" data-i18n="afternoon"></label></div>
+                                    <div class="flex items-center"><input type="checkbox" id="time-4" value="4" class="h-4 w-4 rounded"><label for="time-4" class="ml-2" data-i18n="night"></label></div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2" data-i18n="rating"></h4>
+                                <div id="rating-filter" class="space-y-2 text-sm">
+                                    <div class="flex items-center"><input type="radio" id="rating-4" name="rating" value="4" class="h-4 w-4"><label for="rating-4" class="ml-2" data-i18n="rating_4_plus"></label></div>
+                                    <div class="flex items-center"><input type="radio" id="rating-3" name="rating" value="3" class="h-4 w-4"><label for="rating-3" class="ml-2" data-i18n="rating_3_plus"></label></div>
+                                    <div class="flex items-center"><input type="radio" id="rating-0" name="rating" value="0" class="h-4 w-4" checked><label for="rating-0" class="ml-2" data-i18n="rating_any"></label></div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <main class="lg:col-span-3">
+                        <div id="buses-list" class="space-y-6"></div>
+                    </main>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-gray-800 text-white mt-12 py-6">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; <span id="year"></span> <span data-i18n="busgo_all_rights"></span></p>
+                <p class="text-sm text-gray-400 mt-1" data-i18n="project_motto"></p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="Scripts/data.js"></script>
+    <script src="Scripts/main.js"></script>
+    <script src="Scripts/buses.js"></script>
+    <script src="Scripts/bus-data.js"></script>
+</body>
+</html>

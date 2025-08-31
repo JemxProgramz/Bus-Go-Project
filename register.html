@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">BusGo - Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="Styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+
+    <div id="notification-container"></div>
+
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white/80 backdrop-blur-lg shadow-md sticky top-0 z-40">
+           <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                    <img src="Images/logo.png" alt="BusGo Logo" class="w-12 h-12 object-contain">
+                    <span class="text-2xl font-bold text-gray-800">BusGo</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <div class="relative"><select id="language-select" class="bg-white text-gray-800 border border-gray-300 rounded-lg px-2 py-1"><option value="en">English</option><option value="ta">தமிழ்</option></select></div>
+                    <div id="auth-links" class="flex items-center gap-4"></div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow flex justify-center items-center py-12 px-4 animate-fade-in relative">
+            <div class="absolute inset-0 z-0 bg-gradient-to-r from-blue-500 to-indigo-700"></div>
+            <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2069&auto=format=fit=crop'); background-size: cover;"></div>          
+            <div class="relative z-10 w-full max-w-xl bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-6" data-i18n="create_account">Create Your Account</h2>
+                <form id="register-form" class="space-y-4">
+                    <div>
+                        <label for="name" class="text-sm font-medium text-gray-700" data-i18n="full_name">Full Name</label>
+                        <input type="text" id="name" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label for="phone" class="text-sm font-medium text-gray-700" data-i18n="phone_no">Phone Number</label>
+                        <input type="tel" id="phone" pattern="[0-9]{10}" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label for="email" class="text-sm font-medium text-gray-700" data-i18n="email_optional">Email (Optional)</label>
+                        <input type="email" id="email" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label for="password" class="text-sm font-medium text-gray-700" data-i18n="password">Password</label>
+                        <input type="password" id="password" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label for="confirm-password" class="text-sm font-medium text-gray-700" data-i18n="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm-password" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-gray-700" data-i18n="captcha">CAPTCHA</label>
+                        <div class="flex items-center gap-4 mt-1">
+                            <div id="captcha-code" class="px-4 py-2 bg-gray-200 text-gray-800 text-lg font-bold tracking-widest rounded-lg select-none"></div>
+                            <button type="button" id="refresh-captcha" class="p-2 text-gray-600 hover:text-blue-600"><i data-lucide="refresh-cw" class="w-5 h-5"></i></button>
+                        </div>
+                        <input type="text" id="captcha-input" class="mt-2 w-full px-4 py-2 border border-gray-300 rounded-lg" data-i18n-placeholder="enter_captcha" required>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-colors" data-i18n="register">Register</button>
+                </form>
+            </div>
+        </main>
+
+        <footer class="bg-gray-800 text-white py-6">
+            <div class="container mx-auto px-4 text-center">
+                 <p>&copy; <span id="year"></span> <span data-i18n="busgo_all_rights">BusGo. All rights reserved.</span></p>
+                 <p class="text-sm text-gray-400 mt-1" data-i18n="project_motto">A mini-project for educational purposes.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="Scripts/data.js"></script>
+    <script src="Scripts/main.js"></script>
+    <script src="Scripts/register.js"></script>
+</body>
+</html>

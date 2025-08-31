@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">BusGo - My Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="Styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div id="notification-container"></div>
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-white/80 backdrop-blur-lg shadow-md sticky top-0 z-40">
+           <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+                <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                    <img src="Images/logo.png" alt="BusGo Logo" class="w-12 h-12 object-contain">
+                    <span class="text-2xl font-bold text-gray-800">BusGo</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <div class="relative"><select id="language-select" class="bg-white text-gray-800 border border-gray-300 rounded-lg px-2 py-1"><option value="en">English</option><option value="ta">தமிழ்</option></select></div>
+                    <div id="auth-links" class="flex items-center gap-4"></div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow animate-fade-in">
+             <div class="container mx-auto px-4 py-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6" data-i18n="my_account"></h2>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800" data-i18n="my_bookings"></h3>
+                        <button id="refund-rules-btn" class="text-sm text-blue-600 hover:underline flex items-center gap-1">
+                            <i data-lucide="info" class="w-4 h-4"></i> <span data-i18n="refund_rules"></span>
+                        </button>
+                    </div>
+                    <div id="booking-history-container" class="space-y-6">
+                        </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="bg-gray-800 text-white mt-12 py-6">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; <span id="year"></span> <span data-i18n="busgo_all_rights"></span></p>
+                <p class="text-sm text-gray-400 mt-1" data-i18n="project_motto"></p>
+            </div>
+        </footer>
+    </div>
+
+    <div id="print-area"></div>
+
+    <script src="Scripts/data.js"></script>
+    <script src="Scripts/main.js"></script>
+    <script src="Scripts/account.js"></script>
+</body>
+</html>
