@@ -1,0 +1,300 @@
+/* css/style.css */
+
+/* Basic font setup */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Animation for page transitions */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Animations from the original project */
+.animate-slide-in-down {
+    animation: slideInDown 0.6s ease-out;
+}
+.animate-slide-in-up {
+    animation: slideInUp 0.6s ease-out 0.2s backwards;
+}
+
+@keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom spinner animation */
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Styles for Login Pop-up Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(10, 20, 40, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-box {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    animation: slideInUp 0.4s ease-out;
+}
+
+/* Styles for Autocomplete Suggestions */
+.autocomplete-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #e2e8f0; /* gray-200 */
+    border-top: none;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 50;
+}
+
+.suggestion-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #4b5563; /* gray-600 */
+}
+
+.suggestion-item:hover {
+    background-color: #f3f4f6; /* gray-100 */
+}
+
+/* Styles for Login/Error Notifications */
+.notification-popup {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: slideAndFade 4s ease-in-out forwards;
+}
+
+.notification-popup.success {
+    background-color: #22c55e; /* green-500 */
+}
+
+.notification-popup.error {
+    background-color: #ef4444; /* red-500 */
+}
+
+@keyframes slideAndFade {
+    0% {
+        transform: translate(-50%, -20px);
+        opacity: 0;
+    }
+    15%, 85% {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -20px);
+        opacity: 0;
+    }
+}
+
+/* Styles for Printable Ticket */
+@media print {
+    body * { visibility: hidden; }
+    #print-area, #print-area * { visibility: visible; }
+    #print-area { position: absolute; left: 0; top: 0; width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .modal-box { padding: 1.5rem; }
+}
+
+/* Payment Page Layout */
+.main-payment-layout { display: flex; flex-direction: column; gap: 2rem; }
+.payment-and-summary-wrapper { display: flex; flex-direction: column; gap: 2rem; }
+.payment-methods-container { flex-grow: 1; }
+.summary-container-desktop { display: none; }
+.dos-and-donts-container { width: 100%; }
+
+/* Payment Tabs */
+.payment-tab {
+    display: flex; align-items: center; gap: 0.75rem; width: 100%; padding: 1rem;
+    text-align: left; font-weight: 600; color: #4b5563; border-left: 4px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+.payment-tab:hover { background-color: #f9fafb; }
+.payment-tab.active { background-color: #e0f2fe; color: #2563eb; border-left-color: #2563eb; }
+
+/* Bank & UPI Options */
+.bank-option, .upi-app-button {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem;
+    border: 1px solid #e5e7eb; border-radius: 0.5rem; font-size: 0.875rem;
+    transition: all 0.2s; cursor: pointer;
+}
+.bank-option:hover, .upi-app-button:hover { border-color: #2563eb; background-color: #eff6ff; }
+.bank-option img, .upi-app-button img {
+    width: 40px; height: 40px; object-fit: contain; margin-right: 0.5rem;
+}
+
+/* Coupon Animation Styles */
+.animate-fade-in-up {
+    animation: fadeInUp 0.3s ease-out forwards;
+}
+.animate-shake {
+    animation: shake 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Coupon Success Popup Styles */
+.coupon-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.coupon-popup-box {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: slideInUp 0.4s ease-out;
+}
+
+.sparkle, .party-popper {
+    position: absolute;
+    border-radius: 50%;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.sparkle {
+    background-color: gold;
+    animation-name: sparkle-animation;
+}
+
+.party-popper {
+    background-color: var(--popper-color);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation-name: sparkle-animation;
+}
+
+@keyframes sparkle-animation {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.5) translate(var(--x), var(--y)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+/* Responsive Desktop Layout */
+@media (min-width: 1024px) {
+    .main-payment-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        align-items: start;
+    }
+    .payment-and-summary-wrapper {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+    .dos-and-donts-container {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+    }
+    .summary-container-desktop {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+        display: block;
+    }
+    .summary-container-mobile {
+        display: none;
+    }
+}
+
+/* Mobile UPI specific styles */
+@media (max-width: 1023px) {
+    .upi-qr-tab, .upi-qr-container { display: none !important; }
+    .upi-apps-container { display: block !important; }
+}
+@media (min-width: 1024px) {
+    .upi-apps-container { display: none !important; }
+}
