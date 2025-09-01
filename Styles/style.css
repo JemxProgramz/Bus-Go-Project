@@ -298,3 +298,23 @@ body {
 @media (min-width: 1024px) {
     .upi-apps-container { display: none !important; }
 }
+
+/* Star Rating Popup Styles */
+.star-rating {
+    direction: rtl; /* Puts stars from right to left */
+    display: inline-block;
+    font-size: 2rem;
+}
+
+.star-rating .star {
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating .star:hover,
+.star-rating .star:hover ~ .star,
+.star-rating .star.selected,
+.star-rating .star.selected ~ .star {
+    color: #f5b301;
+}

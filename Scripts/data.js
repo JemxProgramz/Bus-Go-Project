@@ -40,16 +40,20 @@ const translations = {
         selected_seat: 'Selected',
         booked_male_seat: 'Booked (Male)',
         booked_female_seat: 'Booked (Female)',
+        reserved_for_female: 'Reserved for Female',
         booking_summary: 'Booking Summary',
         bus: 'Bus',
         route: 'Route',
         selected_seats: 'Selected Seats',
         total: 'Total',
         passenger_details: 'Passenger Details',
-        male_adults: 'Number of Male Adults',
-        female_adults: 'Number of Female Adults',
-        children: 'Number of Children',
+        adults: 'Number of Adults',
+        children: 'Number of Children (5-11 yrs)',
         mismatch_message: 'The number of passengers must match the number of selected seats.',
+        child_fare_note: "Note: Children aged 5-11 get a 50% discount. Children above 130cm height will be charged full fare.",
+        single_child_booking_error: "Single child booking is not allowed for safety reasons. Please add at least one adult.",
+        age_mismatch_error: "The number of adults and children based on the ages you entered does not match the counts from the booking page. Please correct the ages.",
+        gender_mismatch_error: "A selected seat is reserved for a specific gender. Please check your passenger details.",
 
         // Details Page
         aadhaar_number: 'Aadhaar Number',
@@ -121,6 +125,11 @@ const translations = {
         cancellation_successful: 'Your ticket has been successfully cancelled.',
         booking_status: 'Status',
         status_confirmed: 'Confirmed',
+        status_expired: "Expired",
+        rate_now: "Rate Now",
+        rated: "Rated",
+        rate_journey_title: "How was your journey?",
+        submit_review: "Submit Review",
         print_ticket: 'Print Ticket',
         cancel_ticket: 'Cancel Ticket',
         confirm_cancellation_title: 'Confirm Cancellation',
@@ -156,37 +165,16 @@ const translations = {
         phone_already_registered: 'This phone number is already registered.',
         email_already_registered: 'This email is already registered.',
 
-         apply_coupon: "Apply Coupon",
+        apply_coupon: "Apply Coupon",
         apply: "Apply",
         coupon_applied: "Coupon applied successfully!",
         invalid_coupon: "Invalid or expired coupon code.",
+        coupon_already_used: "This coupon has already been used.",
         discount: "Discount",
         remove_coupon: "Remove",
         coupon_success_title: "Yay!!!",
         you_saved: "You have saved upto",
 
-          children: 'Number of Children (5-11 yrs)',
-        mismatch_message: 'The number of passengers must match the number of selected seats.',
-        child_fare_note: "Note: Children aged 5-11 get a 50% discount. Children above 130cm height will be charged full fare.",
-        single_child_booking_error: "Single child booking is not allowed for safety reasons. Please add at least one adult.",
-
-                age_mismatch_error: "The number of adults and children based on the ages you entered does not match the counts from the booking page. Please correct the ages.",
-
-         passenger_details: 'Passenger Details',
-
-          "reserved_for_female": "Reserved for Female",
-        "gender_mismatch_error": "A selected seat is reserved for a specific gender. Please check your passenger details.",
-      
-        adults: 'Number of Adults',
-        children: 'Number of Children (5-11 yrs)',
-        mismatch_message: 'The number of passengers must match the number of selected seats.',
-        child_fare_note: "Note: Children aged 5-11 get a 50% discount. Children above 130cm height will be charged full fare.",
-        single_child_booking_error: "Single child booking is not allowed for safety reasons. Please add at least one adult.",
-        age_mismatch_error: "The number of adults and children based on the ages you entered does not match the counts from the booking page. Please correct the ages.",
-       
-        
-
-        
         // Footer
         busgo_all_rights: 'BusGo. All rights reserved.',
         project_motto: 'Developed by Jeba Shalom',
@@ -197,19 +185,6 @@ const translations = {
         login_btn: 'உள்நுழைக',
         logout_btn: 'வெளியேறு',
         my_account: 'எனது கணக்கு',
-
-         "reserved_for_female": "பெண்களுக்கு ஒதுக்கப்பட்டது",
-        "gender_mismatch_error": "தேர்ந்தெடுக்கப்பட்ட இருக்கை ஒரு குறிப்பிட்ட பாலினத்திற்காக ஒதுக்கப்பட்டுள்ளது. உங்கள் பயணிகள் விவரங்களைச் சரிபார்க்கவும்.",
-    
-
-        passenger_details: 'பயணிகள் விவரங்கள்',
-        adults: 'பெரியவர்களின் எண்ணிக்கை',
-        children: 'குழந்தைகளின் எண்ணிக்கை (5-11 வயது)',
-        mismatch_message: 'பயணிகளின் எண்ணிக்கை தேர்ந்தெடுக்கப்பட்ட இருக்கைகளின் எண்ணிக்கையுடன் பொருந்த வேண்டும்.',
-        child_fare_note: "குறிப்பு: 5-11 வயதுக்குட்பட்ட குழந்தைகளுக்கு 50% தள்ளுபடி. 130 செ.மீ.க்கு மேல் உயரமுள்ள குழந்தைகளுக்கு முழு கட்டணம் வசூலிக்கப்படும்.",
-        single_child_booking_error: "பாதுகாப்பு காரணங்களுக்காக தனியாக குழந்தை முன்பதிவு அனுமதிக்கப்படாது. தயவுசெய்து ஒரு பெரியவரையாவது சேர்க்கவும்.",
-        age_mismatch_error: "நீங்கள் உள்ளிட்ட வயதுகளின் அடிப்படையில் பெரியவர்கள் மற்றும் குழந்தைகளின் எண்ணிக்கை, முன்பதிவுப் பக்கத்தில் உள்ள எண்ணிக்கைகளுடன் பொருந்தவில்லை. దయచేసి వయస్సులను సరిచేయండి.",
-      
 
         // Home Page
         hero_title: 'உங்கள் பயணம், உங்கள் வழி',
@@ -243,16 +218,20 @@ const translations = {
         selected_seat: 'தேர்ந்தெடுக்கப்பட்டது',
         booked_male_seat: 'முன்பதிவு செய்யப்பட்டது (ஆண்)',
         booked_female_seat: 'முன்பதிவு செய்யப்பட்டது (பெண்)',
+        reserved_for_female: 'பெண்களுக்கு ஒதுக்கப்பட்டது',
         booking_summary: 'முன்பதிவு சுருக்கம்',
         bus: 'பஸ்',
         route: 'வழித்தடம்',
         selected_seats: 'தேர்ந்தெடுக்கப்பட்ட இருக்கைகள்',
         total: 'மொத்தம்',
         passenger_details: 'பயணிகள் விவரங்கள்',
-        male_adults: 'ஆண் பெரியவர்களின் எண்ணிக்கை',
-        female_adults: 'பெண் பெரியவர்களின் எண்ணிக்கை',
-        children: 'குழந்தைகளின் எண்ணிக்கை',
+        adults: 'பெரியவர்களின் எண்ணிக்கை',
+        children: 'குழந்தைகளின் எண்ணிக்கை (5-11 வயது)',
         mismatch_message: 'பயணிகளின் எண்ணிக்கை தேர்ந்தெடுக்கப்பட்ட இருக்கைகளின் எண்ணிக்கையுடன் பொருந்த வேண்டும்.',
+        child_fare_note: "குறிப்பு: 5-11 வயதுக்குட்பட்ட குழந்தைகளுக்கு 50% தள்ளுபடி. 130 செ.மீ.க்கு மேல் உயரமுள்ள குழந்தைகளுக்கு முழு கட்டணம் வசூலிக்கப்படும்.",
+        single_child_booking_error: "பாதுகாப்பு காரணங்களுக்காக தனியாக குழந்தை முன்பதிவு அனுமதிக்கப்படாது. தயவுசெய்து ஒரு பெரியவரையாவது சேர்க்கவும்.",
+        age_mismatch_error: "நீங்கள் உள்ளிட்ட வயதுகளின் அடிப்படையில் பெரியவர்கள் மற்றும் குழந்தைகளின் எண்ணிக்கை, முன்பதிவுப் பக்கத்தில் உள்ள எண்ணிக்கைகளுடன் பொருந்தவில்லை. దయచేసి వయస్సులను సరిచేయండి.",
+        gender_mismatch_error: "தேர்ந்தெடுக்கப்பட்ட இருக்கை ஒரு குறிப்பிட்ட பாலினத்திற்காக ஒதுக்கப்பட்டுள்ளது. உங்கள் பயணிகள் விவரங்களைச் சரிபார்க்கவும்.",
 
         // Details Page
         aadhaar_number: 'ஆதார் எண்',
@@ -324,6 +303,11 @@ const translations = {
         cancellation_successful: 'உங்கள் டிக்கெட் வெற்றிகரமாக ரத்து செய்யப்பட்டது.',
         booking_status: 'நிலை',
         status_confirmed: 'உறுதி செய்யப்பட்டது',
+        status_expired: "காலாவதியானது",
+        rate_now: "மதிப்பிடுக",
+        rated: "மதிப்பிடப்பட்டது",
+        rate_journey_title: "உங்கள் பயணம் எப்படி இருந்தது?",
+        submit_review: "மதிப்பீட்டைச் சமர்ப்பி",
         print_ticket: 'டிக்கெட் அச்சிடுக',
         cancel_ticket: 'டிக்கெட்டை ரத்துசெய்',
         confirm_cancellation_title: 'ரத்து செய்வதை உறுதிப்படுத்தவும்',
@@ -363,25 +347,17 @@ const translations = {
         apply: "பயன்படுத்து",
         coupon_applied: "கூப்பன் வெற்றிகரமாகப் பயன்படுத்தப்பட்டது!",
         invalid_coupon: "தவறான அல்லது காலாவதியான கூப்பன் குறியீடு.",
+        coupon_already_used: "இந்த கூப்பன் ஏற்கனவே பயன்படுத்தப்பட்டது.",
         discount: "தள்ளுபடி",
         remove_coupon: "நீக்கு",
         coupon_success_title: "யே!!!",
         you_saved: "நீங்கள் சேமித்துள்ளீர்கள்",
-
-        children: 'குழந்தைகளின் எண்ணிக்கை (5-11 வயது)',
-        mismatch_message: 'பயணிகளின் எண்ணிக்கை தேர்ந்தெடுக்கப்பட்ட இருக்கைகளின் எண்ணிக்கையுடன் பொருந்த வேண்டும்.',
-        child_fare_note: "குறிப்பு: 5-11 வயதுக்குட்பட்ட குழந்தைகளுக்கு 50% தள்ளுபடி. 130 செ.மீ.க்கு மேல் உயரமுள்ள குழந்தைகளுக்கு முழு கட்டணம் வசூலிக்கப்படும்.",
-        single_child_booking_error: "பாதுகாப்பு காரணங்களுக்காக தனியாக குழந்தை முன்பதிவு அனுமதிக்கப்படாது. தயவுசெய்து ஒரு பெரியவரையாவது சேர்க்கவும்.",
-             age_mismatch_error: "நீங்கள் உள்ளிட்ட வயதுகளின் அடிப்படையில் பெரியவர்கள் மற்றும் குழந்தைகளின் எண்ணிக்கை, முன்பதிவுப் பக்கத்தில் உள்ள எண்ணிக்கைகளுடன் பொருந்தவில்லை. దయచేసి వయస్సులను సరిచేయండి.",
-
         
         // Footer
         busgo_all_rights: 'பஸ் கோ. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
         project_motto: 'ஜெபா ஷாலோம் அவர்களால் உருவாக்கப்பட்டது',
     }
 };
-
-
 
 const coupons = {
     "FIRSTBUS": 15, // 15% off

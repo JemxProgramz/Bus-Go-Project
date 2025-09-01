@@ -2,6 +2,7 @@
 
 let qrTimerInterval;
 let finalAmount = 0;
+let appliedCoupon = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     if (!isLoggedIn()) {
@@ -18,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     finalAmount = bookingDetails.totalPrice;
 
-    // Render the summary in BOTH the mobile and desktop containers from the start
     renderBothBookingSummaries(bookingDetails);
 
     setupPaymentTabs();
@@ -197,11 +197,20 @@ function handleApplyCoupon(event) {
     const summaryContainer = event.target.closest('.bg-white');
     const couponCodeInput = summaryContainer.querySelector('.coupon-code-input');
     const couponCode = couponCodeInput.value.toUpperCase();
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    if (currentUser.usedCoupons && currentUser.usedCoupons.includes(couponCode)) {
+        const couponMessage = summaryContainer.querySelector('.coupon-message');
+        couponMessage.textContent = translations[currentLanguage].coupon_already_used;
+        couponMessage.className = 'coupon-message text-red-600 text-xs mt-1 animate-shake';
+        return;
+    }
 
     if (coupons[couponCode]) {
         const discountPercentage = coupons[couponCode];
         const discount = (bookingDetails.totalPrice * discountPercentage) / 100;
         finalAmount = bookingDetails.totalPrice - discount;
+        appliedCoupon = couponCode;
 
         document.querySelectorAll('.discount-amount').forEach(el => el.textContent = `- ₹${discount.toFixed(2)}`);
         document.querySelectorAll('.discount-row').forEach(el => el.classList.remove('hidden'));
@@ -225,6 +234,7 @@ function handleApplyCoupon(event) {
 function handleRemoveCoupon() {
     const bookingDetails = JSON.parse(sessionStorage.getItem('bookingDetails'));
     finalAmount = bookingDetails.totalPrice;
+    appliedCoupon = null;
 
     document.querySelectorAll('.discount-row').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('.total-amount-display').forEach(el => el.textContent = `₹${finalAmount.toFixed(2)}`);
@@ -395,6 +405,21 @@ function handlePayment() {
     const bookingHistory = JSON.parse(localStorage.getItem('bookingHistory')) || [];
     bookingHistory.push(bookingDetails);
     localStorage.setItem('bookingHistory', JSON.stringify(bookingHistory));
+
+    if (appliedCoupon) {
+        let users = JSON.parse(localStorage.getItem('busgo_users')) || [];
+        let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+        const userIndex = users.findIndex(u => u.phone === currentUser.phone || u.email === currentUser.email);
+        
+        if (userIndex > -1) {
+            if (!users[userIndex].usedCoupons) {
+                users[userIndex].usedCoupons = [];
+            }
+            users[userIndex].usedCoupons.push(appliedCoupon);
+            localStorage.setItem('busgo_users', JSON.stringify(users));
+            sessionStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+        }
+    }
     
     ['searchParams', 'selectedBusId', 'selectedSeats', 'passengerCounts', 'bookingDetails'].forEach(item => sessionStorage.removeItem(item));
     

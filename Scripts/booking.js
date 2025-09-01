@@ -40,7 +40,7 @@ function handleToggleSeat(seatId) {
     }
     
     renderSeats();
-    renderBookingSummary();
+    updateBookingSummary();
 }
 
 function renderSeats() {
@@ -108,7 +108,7 @@ function renderBookingSummary() {
         <div class="space-y-2 text-gray-700">
             <p><strong><span data-i18n="bus"></span>:</strong> ${selectedBus.name}</p>
             <p><strong><span data-i18n="route"></span>:</strong> ${selectedBus.from} to ${selectedBus.to}</p>
-            <p><strong><span data-i18n="selected_seats"></span>:</strong> ${selectedSeats.map(s => s.number).join(', ') || 'None'}</p>
+            <p><strong><span data-i18n="selected_seats"></span>:</strong> <span id="selected-seats-display">${selectedSeats.map(s => s.number).join(', ') || 'None'}</span></p>
         </div>
 
         <div class="mt-6 pt-4 border-t border-gray-300">
@@ -116,18 +116,18 @@ function renderBookingSummary() {
             <div class="space-y-4">
                 <div>
                     <label for="adult-count" class="block text-sm font-medium" data-i18n="adults"></label>
-                    <input type="number" id="adult-count" value="${passengerCounts.adults}" min="0" class="passenger-count-input mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg">
+                    <input type="number" id="adult-count" value="${passengerCounts.adults}" min="0" class="passenger-count-input mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" onfocus="if(this.value==='0') this.value='';" onblur="if(this.value==='') this.value='0';">
                 </div>
                 <div>
                     <label for="child-count" class="block text-sm font-medium" data-i18n="children"></label>
-                    <input type="number" id="child-count" value="${passengerCounts.children}" min="0" class="passenger-count-input mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg">
+                    <input type="number" id="child-count" value="${passengerCounts.children}" min="0" class="passenger-count-input mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" onfocus="if(this.value==='0') this.value='';" onblur="if(this.value==='') this.value='0';">
                 </div>
             </div>
             <p class="text-xs text-gray-500 mt-2" data-i18n="child_fare_note"></p>
         </div>
         
         <div class="mt-6 pt-4 border-t border-gray-300">
-            <div class="flex justify-between items-center text-2xl font-bold"><span data-i18n="total"></span>:<span>₹${totalPrice.toFixed(2)}</span></div>
+            <div class="flex justify-between items-center text-2xl font-bold"><span data-i18n="total"></span>:<span id="total-price-display">₹${totalPrice.toFixed(2)}</span></div>
             <button id="proceed-btn" ${selectedSeats.length === 0 ? 'disabled' : ''} class="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 flex justify-center items-center gap-2">
                 Proceed to Enter Details <i data-lucide="arrow-right" class="w-5 h-5"></i>
             </button>
@@ -138,7 +138,7 @@ function renderBookingSummary() {
         input.addEventListener('input', (e) => {
             if (e.target.id === 'adult-count') passengerCounts.adults = parseInt(e.target.value) || 0;
             if (e.target.id === 'child-count') passengerCounts.children = parseInt(e.target.value) || 0;
-            renderBookingSummary();
+            updateBookingSummary();
         });
     });
 
@@ -147,6 +147,14 @@ function renderBookingSummary() {
     lucide.createIcons();
     updateTranslations();
 }
+
+function updateBookingSummary() {
+    document.getElementById('selected-seats-display').textContent = selectedSeats.map(s => s.number).join(', ') || 'None';
+    const totalPrice = calculateTotalPrice();
+    document.getElementById('total-price-display').textContent = `₹${totalPrice.toFixed(2)}`;
+    document.getElementById('proceed-btn').disabled = selectedSeats.length === 0;
+}
+
 
 function showMismatchPopup() {
     const overlay = document.createElement('div');

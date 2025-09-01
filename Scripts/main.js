@@ -27,20 +27,17 @@ function handleLogin() {
     const password = document.getElementById('password').value;
     const users = JSON.parse(localStorage.getItem('busgo_users')) || [];
 
-    // Step 1: Find the user by their email or phone number first.
     const user = users.find(u => (u.email === identifier || u.phone === identifier));
 
-    // Step 2: Check if a user was found.
     if (!user) {
         showNotification(translations[currentLanguage].user_not_found, 'error');
         return;
     }
 
-    // Step 3: If user was found, now check if the password matches.
     if (user.password === password) {
         showNotification(translations[currentLanguage].login_successful, 'success');
         sessionStorage.setItem('isLoggedIn', 'true');
-        // Redirect after a short delay to allow user to see the message
+        sessionStorage.setItem('currentUser', JSON.stringify(user)); // Store the logged-in user's data
         setTimeout(() => {
             window.location.href = 'index.html';
         }, 1500);
@@ -54,7 +51,8 @@ function handleLogin() {
  */
 function handleLogout() {
     sessionStorage.removeItem('isLoggedIn');
-    window.location.href = 'index.html'; // Redirect to home page after logout
+    sessionStorage.removeItem('currentUser'); // Clear the user's data on logout
+    window.location.href = 'index.html';
 }
 
 /**
@@ -78,7 +76,6 @@ function showNotification(message, type) {
     container.appendChild(notif);
     lucide.createIcons();
 
-    // The notification will remove itself after the animation ends (4s total)
     setTimeout(() => {
         notif.remove();
     }, 4000);
@@ -95,7 +92,6 @@ function renderHeader() {
     if (!authLinksContainer) return;
 
     if (isLoggedIn()) {
-        // Logged-in view (My Account & Logout)
         authLinksContainer.innerHTML = `
             <a href="account.html" class="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors">
                 <i data-lucide="user" class="w-5 h-5"></i>
@@ -108,7 +104,6 @@ function renderHeader() {
         `;
         document.getElementById('logout-btn').addEventListener('click', handleLogout);
     } else {
-        // Logged-out view (Login button is responsive)
         authLinksContainer.innerHTML = `
             <a href="login.html" class="bg-blue-600 flex items-center gap-2 text-white px-4 py-2 rounded-lg font-semibold transform hover:scale-105">
                 <i data-lucide="log-in" class="w-5 h-5"></i>
@@ -116,7 +111,6 @@ function renderHeader() {
             </a>
         `;
     }
-    // This needs to be called again after updating innerHTML to render the icons
     lucide.createIcons();
 }
 
@@ -133,7 +127,6 @@ function renderFooter() {
 
 // --- INTERNATIONALIZATION (i18n) ---
 
-// Get language from storage or default to English
 let currentLanguage = localStorage.getItem('language') || 'en';
 
 /**
@@ -145,9 +138,8 @@ function setupLanguageSwitcher() {
         languageSelect.value = currentLanguage;
         languageSelect.addEventListener('change', (e) => {
             currentLanguage = e.target.value;
-            localStorage.setItem('language', currentLanguage); // Save preference for future visits
+            localStorage.setItem('language', currentLanguage);
             updateTranslations();
-            // Re-render header to update button text if necessary
             renderHeader(); 
         });
     }
@@ -157,7 +149,6 @@ function setupLanguageSwitcher() {
  * Updates all text content on the page to the selected language.
  */
 function updateTranslations() {
-    // Update all elements with the data-i18n attribute
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (translations[currentLanguage] && translations[currentLanguage][key]) {
@@ -170,7 +161,6 @@ function updateTranslations() {
         }
     });
 
-    // Special handling for placeholder text
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[currentLanguage] && translations[currentLanguage][key]) {
@@ -178,7 +168,6 @@ function updateTranslations() {
         }
     });
     
-    // Update the page title
     if (translations[currentLanguage] && translations[currentLanguage]['title']) {
         document.title = translations[currentLanguage]['title'];
     }

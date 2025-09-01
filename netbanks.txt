@@ -46,3 +46,5 @@ const banks = [
 ];
 
 https://1000logos.net/wp-content/uploads/2021/03/Paytm_Logo.jpg
+
+add popup when u click rate now  add discription and stars and if rated  show rated and add print ticket also after expired  add 
